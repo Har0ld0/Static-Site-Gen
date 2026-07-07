@@ -5,11 +5,11 @@ from src.htmlnode import LeafNode
 
 class TextType(Enum):
     TEXT = "text"
-    BOLD = "**Bold text**"
-    ITALIC = "_Italic text_"
-    CODE = "'Code text'"
-    LINK = "[anchor text](url)"
-    IMAGE = "![alt text](url)"
+    BOLD = "bold"
+    ITALIC = "italic"
+    CODE = "code"
+    LINK = "link"
+    IMAGE = "image"
 
 
 class TextNode:
@@ -29,7 +29,7 @@ class TextNode:
             return False
 
     def __repr__(self) -> str:
-        return f"TextNode({self.text}, {self.text_type.value}, {self.url}"
+        return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
 
 
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:
