@@ -1,6 +1,7 @@
 import re
 
-from textnode import TextNode, TextType
+from src.htmlnode import HTMLNode
+from textnode import TextNode, TextType, text_node_to_html_node
 
 
 def split_nodes_delimiter(
@@ -98,3 +99,9 @@ def text_to_textnodes(text: str) -> list[TextNode]:
     text_nodes = split_nodes_link(text_nodes)
 
     return text_nodes
+
+def textnodes_to_htmlnodes(textnodes: list[TextNode]) -> list[HTMLNode]:
+    leafnodes = []
+    for textnode in textnodes:
+        leafnodes.append(text_node_to_html_node(textnode))
+    return leafnodes
