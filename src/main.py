@@ -1,11 +1,9 @@
-from textnode import TextNode, TextType
-
+from site_generator import cleaning_dir, copy_to_dir
 
 def main():
-    test_node = TextNode(
-        "This is some anchor text", TextType.LINK, "https://www.boot.dev"
-    )
-    print(test_node)
+    print("Cleaning /public and copying /static into /public")
+    cleaning_dir("public/")
+    copy_to_dir("static/", "public/")
 
 
 main()
