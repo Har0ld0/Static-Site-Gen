@@ -1,6 +1,6 @@
 import re
 
-from src.htmlnode import HTMLNode
+from htmlnode import HTMLNode
 from textnode import TextNode, TextType, text_node_to_html_node
 
 

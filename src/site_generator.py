@@ -1,6 +1,8 @@
 import os
 import shutil
 
+from markdown_to_html import markdown_to_html_node
+
 def cleaning_dir(dir: str) -> None:
     if os.path.exists(dir):
         to_delete = os.listdir(dir)
@@ -26,3 +28,44 @@ def copy_to_dir(source: str, destination: str) -> None:
                 copy_to_dir(file_path, dir_path)
 
     return None
+
+def extract_title(markdown: str) -> str:
+    title = ""
+    split_md = markdown.split("\n\n")
+    clean_md = []
+    for block in split_md:
+        if block == "":
+            continue
+        block = block.strip()
+        clean_md.append(block)
+
+    if len(clean_md) >= 1:
+        h = clean_md[0]
+        if h.startswith("# "):
+            title = h[2:]
+        else:
+            raise Exception("No header found in this md document")
+
+    return title
+
+def generate_page(from_path: str, template_path: str, dest_path: str):
+    print(f"Generating page from {from_path} to {dest_path} using {template_path}")
+
+    with open(from_path) as file:
+        input_read_data = file.read()
+
+    with open(template_path) as template:
+        template_data = template.read()
+
+    html_content = markdown_to_html_node(input_read_data).to_html()
+    page_title = extract_title(input_read_data)
+
+    template_data = template_data.replace("{{ Title }}", page_title)
+    template_data = template_data.replace("{{ Content }}", html_content)
+
+    dest_dir_path = os.path.dirname(dest_path)
+    if dest_dir_path != "":
+        os.makedirs(dest_dir_path, exist_ok=True)
+
+    with open(dest_path, 'w') as page:
+        page.write(template_data)
