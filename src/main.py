@@ -8,9 +8,9 @@ def main():
         basepath = sys.argv[1]
     print(basepath)
     print("Cleaning /docs and copying /static into /docs")
-    cleaning_dir("docs/")
-    copy_to_dir("static/", "docs/")
-    generate_page_recursive("content/", "template.html", "docs/", basepath)
+    cleaning_dir("./docs")
+    copy_to_dir("./static", "./docs")
+    generate_page_recursive("./content", "./template.html", "./docs", basepath)
 
 
 main()
